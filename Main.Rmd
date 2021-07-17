@@ -488,7 +488,7 @@ kable(
 
 ```
 
-As presented in Table 3, all the VIF values are greater than 10. A VIF value that exceeds 10 indicates the presence of multicollinearity. This is an issue especially for models such as Linear Models (LM) and Generalized Linear Models(GLM). In such cases, the two commonly used approaches are: (1) to drop some of the features, and (2) create orthogonal features by applying methods such as PCA. In this assignment, for the GLM model, PCA components were used as features.
+As presented in Table 3, all the VIF values are greater than 10. A VIF value that exceeds 10 indicates the presence of multicollinearity. This is an issue especially for models such as Linear Models (LM) and Generalized Linear Models(GLM). In such cases, the two commonly used approaches are: (1) to drop some of the features, and (2) create orthogonal features by applying methods such as PCA. For the GLM model, PCA components were used as features.
 
 ## Fitting Logistic Regression
 
@@ -747,11 +747,11 @@ The proposed cutoff for the mean area gave a sensitivity of 94.2% and specificit
 
 # Summary
 
-In this assignment, data analysis was performed to derive a cutoff for the mean area and to find a combination of potentially diagnostic features to explain outcome of breast cancer diagnosis. The dataset comprises 30 features and 569 instances. Both descriptive and predictive analysis were performed. The descriptive analysis made indicated that the distribution of biomarkers are deviated from a normal distribution. The results of Spearman's rank correlation, PCA, and collinearity statistics indicated that the biomarkers have strong pairwise correlations and dependencies. 
+Data analysis was performed to derive a cutoff for the mean area and to find a combination of potentially diagnostic features to explain outcome of breast cancer diagnosis. The dataset comprises 30 features and 569 instances. Both descriptive and predictive analysis were performed. The descriptive analysis made indicated that the distribution of biomarkers are deviated from a normal distribution. The results of Spearman's rank correlation, PCA, and collinearity statistics indicated that the biomarkers have strong pairwise correlations and dependencies. 
 <br/> Random forest and logistic regression were used to be able to identify the type of the tumor based on the given biomarkers. The logistic regression used the the first five principal components as predictors. The first five principal components account for 84.8% of the observed variation. For the random forest 15 original biomarkers were used. Those biomarkers were identified by applying feature importance analysis. Then, the performance of the two models were compared. Accordingly, the logistic regression that used the first five principal components outperformed the random forest model that is based on 15 features. 
+
 <br/> Finally, a cutoff value was derived for the mean area. The cutoff was identified using Youden's index. The index returns a value at which point the sum of sensitivity and specificity is the highest. The derived cutoff value is 695.71. The cutoff gave a sensitivity of 94.2% and a specificity of 87.4%.
 
-\  
 
 
 
