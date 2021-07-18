@@ -3,6 +3,7 @@
 
 Objective of this task is to derive a cutoff of one of the features and to find a combination of potentially diagnostic variables for the identification of benign vs. malignant 
 tumors.
+
 2.Dataset
 
 The dataset consists of 569 examples of breast cancer biopsies. Each example has 32 variables. Out of the 32 variables, 30 are continuous features(biomarkers), one is an 
@@ -15,4 +16,4 @@ distribution shape. Also, as part of data exploration histogram of each biomarke
 
 Descreptive statistics
 
-![Descriptive_Statistics](table_1.PNG)
+![Descriptive](table_1.PNG)
