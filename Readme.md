@@ -177,3 +177,61 @@ Summary of the random forest performance metrics indicated that the model correc
 6.Deriving Cutoff for the Mean Area
 6.1.1.Distribution of Mean Area by Diagnosis
 ![mean-area-by-diagnosist](figure_7.PNG)
+
+Both the scatter plot and histogram shows that there is no a single mean area value that neatly divides between malignant and benign tumors. To decide on the cutoff value various methods are available depending on what needs to be achieved and other healthcare and budget related factors.
+
+6.1.2.Computing Youden’s Index
+
+![Youden-index](figure_8.PNG)
+
+
+To find the cutoff value for the mean area Youden’s index was used. Youden’s index gives a cutoff value that maximizes both sensitivity and specificity. It gives a cutoff value that has the highest sensitivity + specificity -1. Based on the index, the cutoff value for the mean area is 695.71. Tumors with the mean area above or equal to 695.71 are malignant and those with the mean area below 695.71 are benign.
+<pre>
+## [1] The derived cutoff mean area is: 695.71
+</pre>
+
+6.1.3.Histogram and scatterplot for the Mean Area With the Cutoff Value
+
+![MeanArea-cutoff](figure_9.PNG)
+
+6.1.4.Summary of Performance of the Derived Cutoff
+
+<pre>
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction   0   1
+##          0 347  10
+##          1  50 162
+##                                         
+##                Accuracy : 0.895         
+##                  95% CI : (0.866, 0.919)
+##     No Information Rate : 0.698         
+##     P-Value [Acc > NIR] : < 2e-16       
+##                                         
+##                   Kappa : 0.765         
+##                                         
+##  Mcnemar's Test P-Value : 4.78e-07      
+##                                         
+##             Sensitivity : 0.942         
+##             Specificity : 0.874         
+##          Pos Pred Value : 0.764         
+##          Neg Pred Value : 0.972         
+##              Prevalence : 0.302         
+##          Detection Rate : 0.285         
+##    Detection Prevalence : 0.373         
+##       Balanced Accuracy : 0.908         
+##                                         
+##        'Positive' Class : 1             
+## 
+ 
+ </pre>
+ 
+The proposed cutoff for the mean area gave a sensitivity of 94.2% and specificity of 87.4%, meaning the cutoff classified 94.2% of malignant tumor cases and 87.4% of benign tumor cases correctly. The positive predictive value is 76.4%, indicating out of 212 samples classified as malignant tumors, 162 (76.4%) were correct. Also, according to the negative predictive value, out of 357 cases classified as benign tumors, 347(97.2%) were correct. The cutoff misclassified 50 benign tumors as malignant and 10 malignant tumors as benign. Overall, the cutoff correctly classified 509(90.8%) of the samples.
+ 
+ 7.Summary
+ 
+Data analysis was performed to derive a cutoff for the mean area and to find a combination of potentially diagnostic features to explain outcome of breast cancer diagnosis. The dataset comprises 30 features and 569 instances. Both descriptive and predictive analysis were performed. The descriptive analysis made indicated that the distribution of biomarkers are deviated from a normal distribution. The results of Spearman’s rank correlation, PCA, and collinearity statistics indicated that the biomarkers have strong pairwise correlations and dependencies.  Random forest and logistic regression were used to be able to identify the type of the tumor based on the given biomarkers. The logistic regression used the the first five principal components as predictors. The first five principal components account for 84.8% of the observed variation. For the random forest 15 original biomarkers were used. Those biomarkers were identified by applying feature importance analysis. Then, the performance of the two models were compared. Accordingly, the logistic regression that used the first five principal components outperformed the random forest model that is based on 15 features.
+
+ Finally, a cutoff value was derived for the mean area. The cutoff was identified using Youden’s index. The index returns a value at which point the sum of sensitivity and specificity is the highest. The derived cutoff value is 695.71. The cutoff gave a sensitivity of 94.2% and a specificity of 87.4%.
+ 
