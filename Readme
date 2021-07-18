@@ -1,0 +1,468 @@
+
+1.Objectives
+Objective of this task is to derive a cutoff of one of the features and to find a combination of potentially diagnostic variables for the identification of benign vs. malignant 
+tumors.
+2.Dataset
+The dataset consists of 569 examples of breast cancer biopsies. Each example has 32 variables. Out of the 32 variables, 30 are continuous features(biomarkers), one is an 
+identification number, and the other is diagnosis. The diagnosis outcome is coded as “M” to indicate the tumor is malignant and as “B” to indicate the tumor is benign.
+3.Exploratory Data Analysis(EDA)
+Exploratory analysis was performed to describe the centrality, variability, and distributional behavior of the biomarkers. The mean was used as a measurement of central 
+tendency, the standard deviation, range, and the coefficient of variation(CV) were used as measurements of variation, and skewness and kurtosis were used as measurements of
+distribution shape. Also, as part of data exploration histogram of each biomarker by diagnosis (M vs. B) was visualized.
+3.1.1.Summary Statistics
+Descreptive statistics
+
+3.1.2.Histogram of Biomarkers
+
+Figure : Histogram of biomarkers by diagnosis
+According to the CV values, area_se (standard error of area), concavity_se(standard error of concavity), and concavity_mean(mean concavity) have the highest relative dispersion compared to other biomarkers.
+ For a variable that has a perfect normal distribution, the skewness is 0 and the kurtosis is 3. From the values of skewness and kurtosis presented in Table 1, all biomarkers have distributions that are deviated from a normal distribution. However, their level of the deviations are different. For example, area_se (standard error of area) has a distribution that least resembles a normal distribution (skewness = 5.433 and kurtosis = 51.767). The biomarker that has the most close to normal distribution is smoothness_worst(skewness =0.414 and Kurtosis = 3.503). The histograms in Figure 1 also showed the deviations of the distributions of biomarkers from a normal distribution for malignant and benign tumors separately.
+4.Correlation Between Biomarkers
+One important step in predicting a certain outcome is analyzing the relationship between between features. This helps to see if candidate predictors are correlated or if they contain redundant information. To assess the relationship between biomarkers the Spearman’s rank correlation coefficients were calculated.
+
+Figure : Spearman’s rank correlation coefficients
+Pearson correlation coefficient is best when two variables have a bivariate normal distribution which seems less logical to assume for the biomarkers we have considering the results presented in the previous section. One alternative is to apply non-parametric methods such as Spearman’s rank correlation. As presented in Figure 3, there is strong correlation between features that represent area, diameter, perimeter, and concave points. The minimum observed pairwise correlation between them is 0.4. In the heatmap, uncolored cells represents correlation values that are not significantly different from zero at 1% level of significance.
+4.1.1.Comparing Means of Biomarkers by Diagnosis
+T-test mean of biomarkers by diagnosis
+Variable
+Benign_Mean
+Malignant_Mean
+Statistic
+P.value
+Conf.Low
+Conf.High
+radius_mean
+12.147
+17.463
+-22.209
+0.000
+-5.787
+-4.845
+texture_mean
+17.915
+21.605
+-11.022
+0.000
+-4.348
+-3.032
+perimeter_mean
+78.075
+115.365
+-22.935
+0.000
+-40.490
+-34.090
+area_mean
+462.790
+978.376
+-19.641
+0.000
+-567.292
+-463.881
+smoothness_mean
+0.092
+0.103
+-9.297
+0.000
+-0.013
+-0.008
+compactness_mean
+0.080
+0.145
+-15.818
+0.000
+-0.073
+-0.057
+concavity_mean
+0.046
+0.161
+-20.332
+0.000
+-0.126
+-0.104
+concave.points_mean
+0.026
+0.088
+-24.845
+0.000
+-0.067
+-0.057
+symmetry_mean
+0.174
+0.193
+-8.112
+0.000
+-0.023
+-0.014
+fractal_dimension_mean
+0.063
+0.063
+0.297
+0.767
+-0.001
+0.001
+radius_se
+0.284
+0.609
+-13.301
+0.000
+-0.373
+-0.277
+texture_se
+1.220
+1.211
+0.208
+0.835
+-0.080
+0.099
+perimeter_se
+2.000
+4.324
+-12.833
+0.000
+-2.680
+-1.967
+area_se
+21.135
+72.672
+-12.156
+0.000
+-59.894
+-43.181
+smoothness_se
+0.007
+0.007
+1.623
+0.105
+0.000
+0.001
+compactness_se
+0.021
+0.032
+-7.083
+0.000
+-0.014
+-0.008
+concavity_se
+0.026
+0.042
+-6.916
+0.000
+-0.020
+-0.011
+concave.points_se
+0.010
+0.015
+-10.735
+0.000
+-0.006
+-0.004
+symmetry_se
+0.021
+0.020
+0.142
+0.887
+-0.001
+0.002
+fractal_dimension_se
+0.004
+0.004
+-2.036
+0.042
+-0.001
+0.000
+radius_worst
+13.380
+21.135
+-24.830
+0.000
+-8.370
+-7.140
+texture_worst
+23.515
+29.318
+-12.265
+0.000
+-6.733
+-4.873
+perimeter_worst
+87.006
+141.370
+-25.332
+0.000
+-58.590
+-50.139
+area_worst
+558.899
+1422.286
+-20.571
+0.000
+-946.085
+-780.689
+smoothness_worst
+0.125
+0.145
+-10.820
+0.000
+-0.023
+-0.016
+compactness_worst
+0.183
+0.375
+-15.157
+0.000
+-0.217
+-0.167
+concavity_worst
+0.166
+0.451
+-19.596
+0.000
+-0.313
+-0.256
+concave.points_worst
+0.074
+0.182
+-29.118
+0.000
+-0.115
+-0.101
+symmetry_worst
+0.270
+0.323
+-9.530
+0.000
+-0.064
+-0.042
+fractal_dimension_worst
+0.079
+0.092
+-7.323
+0.000
+-0.015
+-0.009
+T-test was used to determine if the mean biomarker values for malignant and benign tumors are statistically equal. Since the sample size is large (>30) the distribution of the t-test statistic will have approximately a normal distribution as given by the Central Limit Theorem(CLT) irrespective of the distribution of the population. The result of the t-test is presented in Table 2. At a 1% level of significance, the mean values for malignant and benign tumors are not significantly different for only four of the biomarkers: fractal_dimension_mean, fractal_dimension_se, texture_se, smoothness_se, and symmetry_se.
+
+
+4.1.2.Principal Component Analysis(PCA)
+PCA was used to further explore the relationship between biomarkers. After applying PCA, the relationship between principal components and biomarkers was analyzed to identify biomarkers that are correlated each other most and biomarkers that contributed most to the total observed variation.
+
+Figure : Scree plot
+
+Figure : Scatter plot of the first two principal components
+4.1.3.Relationship Between Biomarkers and Principal Components
+
+Figure : Relationship between principal components and features
+As presented in Figure 4, the first Principal Component (PC) accounts for 44.3% of variance from the original set of biomarkers. Similarly, all subsequent orthogonal components account for the maximum proportion of the remaining variance. Usually the orthogonal components of PCA doesn’t help in searching features that best predict a certain outcome variable. This is mainly because PCA do the transformation irrespective of the outcome variable. However for breast cancer biomarkers, the orthogonal components magnified the boundaries between malignant and benign groups, see Figure 5.
+Figure 6 presents the relationship between biomarkers and features. It was computed by taking the dot product of features and orthogonal components. The figure tells which biomarkers contributed for which principal component. For example, the five major contributors of the first principal are: concave.points_mean, concave.points_worst, concavity_mean, perimeter_worst, and compactness_mean.
+
+
+5.Modeling Diagnosis Outcome
+Two models were developed to be able to recognize the type of the tumor based on biomarkers or features generated from them. The first fitted model is Generalized Linear Model(GLM) and the second model is Random Forest(RF) model. First, the dataset was split as 70% train and 30% test set. For the GLM collinearities between biomarkers were assessed by computing VIF and Tolerance.
+5.1.1.Checking the Presence of Multicollinearity
+VIF and Tolerance values
+VIF(Tolerance)
+diagnosisM
+5.85e+11 (1.71e-12)
+radius_mean
+6.22e+14 (1.61e-15)
+texture_mean
+1.53e+12 (6.54e-13)
+perimeter_mean
+6.10e+14 (1.64e-15)
+area_mean
+5.39e+13 (1.85e-14)
+smoothness_mean
+1.09e+12 (9.21e-13)
+compactness_mean
+6.68e+12 (1.50e-13)
+concavity_mean
+1.02e+13 (9.76e-14)
+concave.points_mean
+8.73e+12 (1.15e-13)
+symmetry_mean
+5.23e+11 (1.91e-12)
+fractal_dimension_mean
+1.80e+12 (5.56e-13)
+radius_se
+1.05e+13 (9.54e-14)
+texture_se
+5.26e+11 (1.90e-12)
+perimeter_se
+1.03e+13 (9.76e-14)
+area_se
+5.73e+12 (1.75e-13)
+VIF(Tolerance)
+smoothness_se
+5.28e+11 (1.90e-12)
+compactness_se
+3.06e+12 (3.26e-13)
+concavity_se
+2.29e+12 (4.36e-13)
+concave.points_se
+1.44e+12 (6.96e-13)
+symmetry_se
+5.72e+11 (1.75e-12)
+fractal_dimension_se
+1.39e+12 (7.22e-13)
+radius_worst
+1.11e+14 (8.98e-15)
+texture_worst
+2.31e+12 (4.33e-13)
+perimeter_worst
+5.27e+13 (1.90e-14)
+area_worst
+5.05e+13 (1.98e-14)
+smoothness_worst
+1.35e+12 (7.38e-13)
+compactness_worst
+6.10e+12 (1.64e-13)
+concavity_worst
+5.19e+12 (1.93e-13)
+concave.points_worst
+5.07e+12 (1.97e-13)
+symmetry_worst
+1.04e+12 (9.61e-13)
+As presented in Table 3, all the VIF values are greater than 10. A VIF value that exceeds 10 indicates the presence of multicollinearity. This is an issue especially for models such as Linear Models (LM) and Generalized Linear Models(GLM). In such cases, the two commonly used approaches are: (1) to drop some of the features, and (2) create orthogonal features by applying methods such as PCA. For the GLM model, PCA components were used as features.
+5.2.Fitting Logistic Regression
+The VIF and Tolerance values showed the presence of strong collinearity between biomarkers. For the GLM, the presence of multicollinearity causes unstable estimates and inaccurate standard errors which affects confidence intervals and hypothesis tests. For this reason, for logistic regression, the first five components of PCA are used instead of the original biomarkers.
+
+
+5.2.1.Summary of Logistic Regression Model
+## 
+## Call:
+## glm(formula = factor(diagnosis_numeric) ~ ., family = binomial(link = "logit"), 
+##     data = TrainData_PCA[, c(1:5, 31)])
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+## -1.752  -0.041  -0.005   0.001   3.610  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(>|z|)    
+## (Intercept)   -0.382      0.371   -1.03  3.0e-01    
+## PC1            3.005      0.553    5.44  5.4e-08 ***
+## PC2           -1.589      0.369   -4.30  1.7e-05 ***
+## PC3           -0.418      0.206   -2.03  4.2e-02 *  
+## PC4            0.747      0.289    2.58  9.9e-03 ** 
+## PC5            1.182      0.486    2.43  1.5e-02 *  
+## ---
+## Signif. codes:  0 '***' 1e-03 '**' 1e-02 '*' 5e-02 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 527.285  on 398  degrees of freedom
+## Residual deviance:  55.241  on 393  degrees of freedom
+## AIC: 67.24
+## 
+## Number of Fisher Scoring iterations: 9
+5.2.2.Performance of the Logistic Regression Model
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction   0   1
+##          0 104   3
+##          1   2  61
+##                                        
+##                Accuracy : 0.971        
+##                  95% CI : (0.933, 0.99)
+##     No Information Rate : 0.624        
+##     P-Value [Acc > NIR] : <2e-16       
+##                                        
+##                   Kappa : 0.937        
+##                                        
+##  Mcnemar's Test P-Value : 1            
+##                                        
+##             Sensitivity : 0.953        
+##             Specificity : 0.981        
+##          Pos Pred Value : 0.968        
+##          Neg Pred Value : 0.972        
+##              Prevalence : 0.376        
+##          Detection Rate : 0.359        
+##    Detection Prevalence : 0.371        
+##       Balanced Accuracy : 0.967        
+##                                        
+##        'Positive' Class : 1            
+## 
+Since logistic regression assumes weak or no correlation between predictors, the first five principal components are used. The first five principal components account for 84.8% of the total variation. The results of the model summary indicated that, at a 1% level of significance the coefficients of all the five principal components are significantly different from zero. Also, the model performance summary indicated that the fitted logistic regression correctly classified 97.1% of the cases. It was also able to identify 95.3% of true malignant tumor cases and 98.1% of true benign tumor cases.
+5.3.Fitting Random Forest Model
+Unlike the LM and GLM models, the random forest doesn’t expect the features to be uncorrelated. For this reason and to directly engage with the original content, biomarkers as they are given were used. The importance of features is analyzed to make the model less complex and to rank the biomarkers based on their importance. The final model is fitted using 15 (50%) of the available features.
+5.3.1.Feature Importance Random Forest Model
+
+Figure : Random forest feature importance
+
+
+5.3.2.Evaluating the Performance of the RF Model
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction  0  1
+##          0 99  8
+##          1  3 60
+##                                         
+##                Accuracy : 0.935         
+##                  95% CI : (0.887, 0.967)
+##     No Information Rate : 0.6           
+##     P-Value [Acc > NIR] : <2e-16        
+##                                         
+##                   Kappa : 0.864         
+##                                         
+##  Mcnemar's Test P-Value : 0.228         
+##                                         
+##             Sensitivity : 0.882         
+##             Specificity : 0.971         
+##          Pos Pred Value : 0.952         
+##          Neg Pred Value : 0.925         
+##              Prevalence : 0.400         
+##          Detection Rate : 0.353         
+##    Detection Prevalence : 0.371         
+##       Balanced Accuracy : 0.926         
+##                                         
+##        'Positive' Class : 1             
+## 
+Summary of the random forest performance metrics indicated that the model correctly classified 93.5% of the cases for the test set. The model was also able to recognize 88.2% of the true malignant tumor cases and 97.1% of benign tumor cases. According to the feature importance, biomarkers related to the size of the tumor such as area, perimeter, concave points, radius are more important.
+6.Deriving Cutoff for the Mean Area
+6.1.1.Distribution of Mean Area by Diagnosis
+
+Figure : Histogram and scatter plot for mean area
+Both the scatter plot and histogram shows that there is no a single mean area value that neatly divides between malignant and benign tumors. To decide on the cutoff value various methods are available depending on what needs to be achieved and other healthcare and budget related factors.
+6.1.2.Computing Youden’s Index
+
+Figure : ROC curve for mean area
+To find the cutoff value for the mean area Youden’s index was used. Youden’s index gives a cutoff value that maximizes both sensitivity and specificity. It gives a cutoff value that has the highest sensitivity + specificity -1. Based on the index, the cutoff value for the mean area is 695.71. Tumors with the mean area above or equal to 695.71 are malignant and those with the mean area below 695.71 are benign.
+## [1] The derived cutoff mean area is: 695.71
+6.1.3.Histogram and scatterplot for the Mean Area With the Cutoff Value
+
+Figure : Histogram and scatter plot with the cutoff value
+6.1.4.Summary of Performance of the Derived Cutoff
+## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction   0   1
+##          0 347  10
+##          1  50 162
+##                                         
+##                Accuracy : 0.895         
+##                  95% CI : (0.866, 0.919)
+##     No Information Rate : 0.698         
+##     P-Value [Acc > NIR] : < 2e-16       
+##                                         
+##                   Kappa : 0.765         
+##                                         
+##  Mcnemar's Test P-Value : 4.78e-07      
+##                                         
+##             Sensitivity : 0.942         
+##             Specificity : 0.874         
+##          Pos Pred Value : 0.764         
+##          Neg Pred Value : 0.972         
+##              Prevalence : 0.302         
+##          Detection Rate : 0.285         
+##    Detection Prevalence : 0.373         
+##       Balanced Accuracy : 0.908         
+##                                         
+##        'Positive' Class : 1             
+## 
+The proposed cutoff for the mean area gave a sensitivity of 94.2% and specificity of 87.4%, meaning the cutoff classified 94.2% of malignant tumor cases and 87.4% of benign tumor cases correctly. The positive predictive value is 76.4%, indicating out of 212 samples classified as malignant tumors, 162 (76.4%) were correct. Also, according to the negative predictive value, out of 357 cases classified as benign tumors, 347(97.2%) were correct. The cutoff misclassified 50 benign tumors as malignant and 10 malignant tumors as benign. Overall, the cutoff correctly classified 509(90.8%) of the samples.
+7.Summary
+Data analysis was performed to derive a cutoff for the mean area and to find a combination of potentially diagnostic features to explain outcome of breast cancer diagnosis. The dataset comprises 30 features and 569 instances. Both descriptive and predictive analysis were performed. The descriptive analysis made indicated that the distribution of biomarkers are deviated from a normal distribution. The results of Spearman’s rank correlation, PCA, and collinearity statistics indicated that the biomarkers have strong pairwise correlations and dependencies.  Random forest and logistic regression were used to be able to identify the type of the tumor based on the given biomarkers. The logistic regression used the the first five principal components as predictors. The first five principal components account for 84.8% of the observed variation. For the random forest 15 original biomarkers were used. Those biomarkers were identified by applying feature importance analysis. Then, the performance of the two models were compared. Accordingly, the logistic regression that used the first five principal components outperformed the random forest model that is based on 15 features.
+ Finally, a cutoff value was derived for the mean area. The cutoff was identified using Youden’s index. The index returns a value at which point the sum of sensitivity and specificity is the highest. The derived cutoff value is 695.71. The cutoff gave a sensitivity of 94.2% and a specificity of 87.4%.
