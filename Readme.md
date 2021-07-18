@@ -100,7 +100,7 @@ The VIF and Tolerance values showed the presence of strong collinearity between 
 </pre>
 
 5.2.2.Performance of the Logistic Regression Model
-
+<pre>
 ## Confusion Matrix and Statistics
 ## 
 ##           Reference
@@ -129,6 +129,8 @@ The VIF and Tolerance values showed the presence of strong collinearity between 
 ##        'Positive' Class : 1            
 ## 
  
+</pre> 
+ 
 Since logistic regression assumes weak or no correlation between predictors, the first five principal components are used. The first five principal components account for 84.8% of the total variation. The results of the model summary indicated that, at a 1% level of significance the coefficients of all the five principal components are significantly different from zero. Also, the model performance summary indicated that the fitted logistic regression correctly classified 97.1% of the cases. It was also able to identify 95.3% of true malignant tumor cases and 98.1% of true benign tumor cases.
 
 
@@ -140,6 +142,8 @@ Unlike the LM and GLM models, the random forest doesn’t expect the features to
 ![feature-importance-plot](figure_6.PNG)
 
 5.3.2.Evaluating the Performance of the RF Model
+
+<pre>
 ## Confusion Matrix and Statistics
 ## 
 ##           Reference
@@ -167,7 +171,7 @@ Unlike the LM and GLM models, the random forest doesn’t expect the features to
 ##                                         
 ##        'Positive' Class : 1             
 ## 
-
+</pre>
 Summary of the random forest performance metrics indicated that the model correctly classified 93.5% of the cases for the test set. The model was also able to recognize 88.2% of the true malignant tumor cases and 97.1% of benign tumor cases. According to the feature importance, biomarkers related to the size of the tumor such as area, perimeter, concave points, radius are more important.
 
 6.Deriving Cutoff for the Mean Area
