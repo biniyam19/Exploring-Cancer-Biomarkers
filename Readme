@@ -31,6 +31,7 @@ T-test was used to determine if the mean biomarker values for malignant and beni
 
 
 4.1.2.Principal Component Analysis(PCA)
+
 PCA was used to further explore the relationship between biomarkers. After applying PCA, the relationship between principal components and biomarkers was analyzed to identify biomarkers that are correlated each other most and biomarkers that contributed most to the total observed variation.
 
 Figure : Scree plot
