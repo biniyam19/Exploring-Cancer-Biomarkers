@@ -69,7 +69,7 @@ As presented in Table 3, all the VIF values are greater than 10. A VIF value tha
 5.2.Fitting Logistic Regression
 
 The VIF and Tolerance values showed the presence of strong collinearity between biomarkers. For the GLM, the presence of multicollinearity causes unstable estimates and inaccurate standard errors which affects confidence intervals and hypothesis tests. For this reason, for logistic regression, the first five components of PCA are used instead of the original biomarkers.
-
+<pre>
 ## 
 ## Call:
 ## glm(formula = factor(diagnosis_numeric) ~ ., family = binomial(link = "logit"), 
@@ -97,7 +97,10 @@ The VIF and Tolerance values showed the presence of strong collinearity between 
 ## AIC: 67.24
 ## 
 ## Number of Fisher Scoring iterations: 9
+</pre>
+
 5.2.2.Performance of the Logistic Regression Model
+
 ## Confusion Matrix and Statistics
 ## 
 ##           Reference
@@ -125,7 +128,7 @@ The VIF and Tolerance values showed the presence of strong collinearity between 
 ##                                        
 ##        'Positive' Class : 1            
 ## 
-
+ 
 Since logistic regression assumes weak or no correlation between predictors, the first five principal components are used. The first five principal components account for 84.8% of the total variation. The results of the model summary indicated that, at a 1% level of significance the coefficients of all the five principal components are significantly different from zero. Also, the model performance summary indicated that the fitted logistic regression correctly classified 97.1% of the cases. It was also able to identify 95.3% of true malignant tumor cases and 98.1% of true benign tumor cases.
 
 
