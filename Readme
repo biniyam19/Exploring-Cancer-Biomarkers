@@ -11,7 +11,9 @@ tendency, the standard deviation, range, and the coefficient of variation(CV) we
 distribution shape. Also, as part of data exploration histogram of each biomarker by diagnosis (M vs. B) was visualized.
 3.1.1.Summary Statistics
 Descreptive statistics
+
 ![Descriptive_Statistics](table_1.PNG)
+
 3.1.2.Histogram of Biomarkers
 ![Histogram of biomarkers by diagnosis](figure_1.PNG)
 According to the CV values, area_se (standard error of area), concavity_se(standard error of concavity), and concavity_mean(mean concavity) have the highest relative dispersion compared to other biomarkers.
